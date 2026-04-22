@@ -4,13 +4,7 @@ import cv2
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-
-# Extraer el color dominante
-def extraer_hist (ruta_imagen):
-  image = cv2.imread(ruta_imagen)
-
-  hist = cv2.calcHist([image],[1,2],None,[256,256],[0,256,0,256])
-  return cv2.merge([hist])
+from app.feature_extractor import extract_features
 
 def procesar(train_labels):
   y = []
