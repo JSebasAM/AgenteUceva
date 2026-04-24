@@ -5,6 +5,8 @@ from io import BufferedReader, BufferedWriter
 
 from fastapi import FastAPI, UploadFile, Form, File
 
+from app.model import train_model, classify_image
+
 app = FastAPI()
 
 @app.get("/health")
