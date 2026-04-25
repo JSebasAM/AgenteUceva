@@ -33,16 +33,17 @@ def train(file:UploadFile = File(...), classifier_name: str = Form(...)):
         zip_ref.extractall(extract_path)
 
     #Entrenar modelo
-    accuracy, classes = train_model(extract_path, classifier_name)
+    accuracy_train, accuracy_test, classes = train_model(extract_path, classifier_name)
 
     #remover archivos temporales zip, dataset
     os.remove(tmp_path)
     shutil.rmtree(extract_path)
 
     return {
-        "classifier_name: ": classifier_name,
-        "accuracy":  accuracy,
-        "etiquetas reconocidas: ": classes
+        "classifier_name": classifier_name,
+        "accuracy train":  accuracy_train,
+        "accuracy test": accuracy_test,
+        "etiquetas reconocidas": classes
     }
 
 @app.post("/classify")
@@ -59,6 +60,6 @@ def classify(file:UploadFile = File(...), classifier_name: str = Form(...)):
     os.remove(image_path)
 
     return {
-        "prediction: ": prediction,
+        "prediction": prediction,
         "confidence": confidence
     }

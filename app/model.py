@@ -19,7 +19,7 @@ def load_data(dataset_path):
     directorio = os.path.join(dataset_path, etiqueta)
 
     for filename in os.listdir(directorio):
-      full_path = os.path.join(directorio, filename)
+      full_path = os.path.normpath(os.path.join(directorio, filename))
       histograma = extract_features(full_path)
 
       X.append(histograma)

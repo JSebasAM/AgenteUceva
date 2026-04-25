@@ -1,8 +1,11 @@
+import os
+
 import cv2
 import numpy as np
 
 def extract_features(img_path):
 
+    img_path = os.path.normpath(img_path)
     image = cv2.imread(img_path)
 
     if image is None:
@@ -15,15 +18,15 @@ def extract_features(img_path):
 
     hist_r = cv2.calcHist([image], [0], None, [32], [0, 256])
     hist_g = cv2.calcHist([image], [1], None, [32], [0, 256])
-    hist_b = cv2.calcHist([image], [0], None, [32], [0, 256])
+    hist_b = cv2.calcHist([image], [2], None, [32], [0, 256])
 
     #Normalizamos los datos
 
-    hist_r = cv2.normalize(hist_b, hist_b).flatten()
+    hist_r = cv2.normalize(hist_r, hist_r).flatten()
     hist_g = cv2.normalize(hist_g, hist_g).flatten()
     hist_b = cv2.normalize(hist_b, hist_b).flatten()
 
     #Concatenamos los datos
 
-    return np.hstack(cv2.merge((hist_r, hist_g, hist_b)))
+    return np.hstack((hist_r, hist_g, hist_b))
 
